@@ -1,2 +1,6 @@
+^renv$
+^renv\.lock$
 ^luxjob\.Rproj$
 ^\.Rproj\.user$
+renv/
+renv.lock
