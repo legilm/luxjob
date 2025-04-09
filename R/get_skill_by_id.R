@@ -27,6 +27,6 @@ get_skill_by_id <- function(skill_id){
     ORDER BY skill_id ASC",
       .con = con
     ))
-  dbDisconnect(con)
+  DBI::dbDisconnect(con)
   return(output)
 }

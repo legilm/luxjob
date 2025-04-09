@@ -65,7 +65,7 @@ get_vacancies <- function(skill = NULL, company = NULL, canton = NULL, limit = 1
   ", .con = con)
 
   output <- DBI::dbGetQuery(con, query)
-  dbDisconnect(con)
+  DBI::dbDisconnect(con)
 
   if (nrow(output) == 0) {
     return(NULL)

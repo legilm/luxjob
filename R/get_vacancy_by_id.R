@@ -18,6 +18,7 @@
 #' If no vacancy is found for the provided `vacancy_id`, `NULL` is returned.
 #'
 #' @import DBI
+#' @importFrom DBI dbDisconnect
 #' @import glue
 #' @examples
 #' # Example of calling the function with a specific vacancy ID
@@ -28,7 +29,11 @@
 #'
 #' @export
 get_vacancy_by_id <- function(vacancy_id = NULL){
-
+  #connect to DB before the query
+  con <- connect_db()
+  # Empty filter variable
+  filter <- glue::glue_sql("")
+  # Retrieve vacancy ids from ADEM Database
   if (!is.null(vacancy_id)) {
     filter <- (glue::glue_sql(" v.vacancy_id = {vacancy_id}", .con = con))
   }
@@ -38,7 +43,6 @@ get_vacancy_by_id <- function(vacancy_id = NULL){
   } else {
     DBI::SQL("")
   }
-  con <- connect_db()
   output <- DBI::dbGetQuery(
     con,
     glue::glue_sql("
@@ -50,7 +54,7 @@ get_vacancy_by_id <- function(vacancy_id = NULL){
 	  {where_clause}",
                    .con = con
     ))
-  dbDisconnect(con)
+  DBI::dbDisconnect(con)
   if(nrow(output) == 0) {
     return(NULL)
   }

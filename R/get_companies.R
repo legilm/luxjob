@@ -37,6 +37,6 @@ get_companies <- function(limit = 100){
     LIMIT {limit}",
                    .con = con
     ))
-  dbDisconnect(con)
+  DBI::dbDisconnect(con)
   return(output)
 }

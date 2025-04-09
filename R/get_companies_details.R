@@ -35,7 +35,7 @@ get_companies_datails <- function(company_id = 1){
     WHERE c.company_id = {company_id}",
                    .con = con
     ))
-  dbDisconnect(con)
+  DBI::dbDisconnect(con)
   if(nrow(output) == 0) {
     return(NULL)
   }
