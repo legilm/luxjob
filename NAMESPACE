@@ -3,7 +3,7 @@
 export(connect_db)
 export(get_books)
 export(get_companies)
-export(get_companies_datails)
+export(get_companies_details)
 export(get_learning_tracks)
 export(get_skill_by_id)
 export(get_skills)

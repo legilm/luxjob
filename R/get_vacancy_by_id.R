@@ -29,6 +29,10 @@
 #'
 #' @export
 get_vacancy_by_id <- function(vacancy_id = NULL){
+  # Check if it is a positive integer
+  if (!is.numeric(company_id) || length(company_id) != 1 || is.na(company_id) || company_id %% 1 != 0) {
+    stop("Error: The 'company_id' argument must be a non-null integer.")
+  }
   #connect to DB before the query
   con <- connect_db()
   # Empty filter variable
