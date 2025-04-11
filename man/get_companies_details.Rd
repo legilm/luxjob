@@ -27,7 +27,7 @@ If the company is not found, the function returns \code{NULL}.
   get_companies_details(1)
 
   # Attempt to retrieve info for a non-existing company; returns NULL
-  get_companies_details(company_id = 9999)
+  get_companies_details(company_id = 1)
 }
 
 }

@@ -31,10 +31,7 @@
 #' @importFrom DBI dbGetQuery
 #' @importFrom DBI dbDisconnect
 get_books <- function(skill_id = NULL){
-  # Check if it is a positive integer
-  if (!is.numeric(company_id) || length(company_id) != 1 || is.na(company_id) || company_id %% 1 != 0) {
-    stop("Error: The 'skill_id' argument must be a non-null integer.")
-  }
+
   #connect to DB before the query
   con <- connect_db()
   # Empty filter variable
@@ -61,5 +58,3 @@ get_books <- function(skill_id = NULL){
   }
   return(output)
 }
-
-#'

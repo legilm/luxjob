@@ -27,6 +27,9 @@
 #' }
 #
 get_skills <- function(limit = 100){
+  if (!is.numeric(limit) || length(limit) != 1 || is.na(limit) || limit %% 1 != 0) {
+    stop("Error: The 'limit' argument must be a non-null integer.")
+  }
   con <- connect_db()
   output <- DBI::dbGetQuery(
     con,

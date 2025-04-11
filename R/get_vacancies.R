@@ -32,7 +32,6 @@
 get_vacancies <- function(skill = NULL, company = NULL, canton = NULL, limit = 100) {
   con <- connect_db()
 
-  # Assemble the conditional parts
   filters <- c()
 
   if (!is.null(skill)) {
@@ -45,7 +44,6 @@ get_vacancies <- function(skill = NULL, company = NULL, canton = NULL, limit = 1
     filters <- c(filters, glue::glue_sql("v.canton = {canton}", .con = con))
   }
 
-  # Build the complete WHERE as a raw SQL string
   where_clause <- if (length(filters) > 0) {
     DBI::SQL(paste("WHERE", paste(filters, collapse = " AND ")))
   } else {

@@ -2,25 +2,44 @@
 % Please edit documentation in R/get_skill_by_id.R
 \name{get_skill_by_id}
 \alias{get_skill_by_id}
-\title{Retrieve Skill Information by ESCO Skill ID}
+\title{Retrieve Skill Information from the Database}
 \usage{
-get_skill_by_id(skill_id)
+get_skill_by_id(skill_id = NULL)
 }
 \arguments{
-\item{skill_id}{A character string containing the full ESCO Skill URI.
-For example: \code{"http://data.europa.eu/esco/skill/000f1d3d-220f-4789-9c0a-cc742521fb02"}.}
+\item{skill_id}{Character. Optional. The URI or identifier of a specific skill based on the ESCO classification (e.g., \code{"http://data.europa.eu/esco/skill/000f1d3d-220f-4789-9c0a-cc742521fb02"}).
+If \code{NULL} or not provided, the function will retrieve all skills available in the \code{adem.skills} table.}
 }
 \value{
-A data frame containing the information of the skill corresponding to
-the specified \code{skill_id}. If the ID does not exist in the database, an empty data frame is returned.
+A data frame containing the skill information. If the \code{skill_id} is provided and does not exist in the database,
+a character string is returned indicating that the skill does not exist.
 }
 \description{
-This function connects to the database and retrieves information from the
-\code{adem.skills} table for a given ESCO Skill ID. The ID should be provided as a full URI string,
-for example: \code{"http://data.europa.eu/esco/skill/000f1d3d-220f-4789-9c0a-cc742521fb02"}.
+This function retrieves skill information from the \code{adem.skills} table in the connected database.
+The user can specify a \code{skill_id} to retrieve a specific skill or omit it to return all skills in the table.
+}
+\details{
+The function opens a connection to the database using the internal helper function \code{connect_db()},
+executes an SQL query to fetch the data, and then closes the connection before returning the result.
+\itemize{
+\item If \code{skill_id} is provided, the function performs a filtered query by \code{skill_id}.
+\item If \code{skill_id} is \code{NULL}, it retrieves the entire \code{adem.skills} table.
+}
+
+The function assumes that the \code{connect_db()} function and the \code{glue} and \code{DBI} packages are available.
 }
 \examples{
-# Retrieve a skill using its ESCO Skill URI
+# Example 1: Retrieve a specific skill by ID
 get_skill_by_id("http://data.europa.eu/esco/skill/000f1d3d-220f-4789-9c0a-cc742521fb02")
 
+# Example 2: Retrieve all skills
+get_skill_by_id()
+
+# Example 3: Error when non-character input is provided
+\dontrun{
+get_skill_by_id(12345) # Will raise an error
+}
+}
+\seealso{
+\code{\link[=connect_db]{connect_db()}} for the database connection function
 }
